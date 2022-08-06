@@ -1,6 +1,6 @@
 +++
 title = "⚡My Emacs Config - Nothung"
-author = ["Tsunemichi Harada"]
+lastmod = 2022-08-06T09:14:38+09:00
 tags = ["Emacs"]
 draft = false
 +++
@@ -80,7 +80,8 @@ notes:
 (use-package! ace-link
   :config
   (eval-after-load 'eww '(define-key eww-mode-map "f" 'ace-link-eww))
-  (ace-link-setup-default))
+  (ace-link-setup-default)
+  (define-key org-mode-map (kbd "M-o") 'ace-link-org))
 ```
 
 
@@ -904,7 +905,7 @@ EmacsのWindow Manager.
   (defconst my/inbox-file "~/keido/inbox/inbox.org")
   (defconst my/daily-journal-dir "~/keido/notes/journals/daily")
   (defconst my/project-journal-bakuchi
-    "~/keido/notes/zk/journal_bakuchi.org")
+    "~/repo/bakuchi-doc/notes/journal.org")
   (defconst my/project-journal-deepwork
     "~/keido/notes/zk/journal_deepwork.org")
 
@@ -914,10 +915,11 @@ EmacsのWindow Manager.
   ;; 何でもかんでも agenda すると思いので厳選.
   ;; org-journalの機能でこのほかに今日のjournal fileが追加される.
   (setq org-agenda-files
-        '(my/gtd-projects-file
-          my/project-journal-bakuchi
-          my/project-journal-deepwork))
-  )
+        (list
+         my/gtd-projects-file
+         my/project-journal-bakuchi
+         my/project-journal-deepwork))
+)
 ```
 
 
@@ -1006,9 +1008,9 @@ ref. [TODO Extensions (The Org Manual)](https://orgmode.org/manual/TODO-Extensio
 
 ```emacs-lisp
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "NEXT(n)" "PROJ(p)" "WAIT(w)" "|" "DONE(d)")
+      '((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(d)")
         (sequence "✅(c)" "💡(b)" "📍(r)" "🔍(s)" "📊(a)" "🔬(e)" "🗣(h)" "|")
-        (sequence "🎓(z)" "📝(m)" "🔗(l)" "|")))
+        (sequence "🎓(z)" "📝(m)" "🔗(l)" "⚙(p)"  "|")))
 ```
 
 
@@ -1133,7 +1135,6 @@ ref. [TODO Extensions (The Org Manual)](https://orgmode.org/manual/TODO-Extensio
 (after! org
   (setq org-capture-templates
         (append
-         org-capture-templates
         '(("b" "🖊 bakuchi entry" entry
            (file+olp+datetree my/project-journal-bakuchi)
            "* %?\nCaptured On: %T\n"
@@ -1154,7 +1155,7 @@ ref. [TODO Extensions (The Org Manual)](https://orgmode.org/manual/TODO-Extensio
            :unnarrowed t
            :empty-lines 1
            :tree-type week
-           :klll-buffer t)))))
+           :klll-buffer t)) org-capture-templates)))
 ```
 
 
@@ -1237,22 +1238,23 @@ Org-modeで書いたブログ記事をHugoにあったMarkdown形式に変換す
 
 ```emacs-lisp
 (use-package! ox-hugo
-  :after 'ox
+  :after ox
+  :bind
+  ;; org-roamのexportで多様するのでC-c rのprefixをつけておく.
+  ("C-c r e" . org-hugo-export-to-md)
   :config
-  ;; なんか.dir-locals.elに書いても反映してくれないな. ココに書いとく.
-  (setq org-export-with-author nil))
-
-;; org-roamのexportで多様するのでC-c rのprefixをつけておく.
-(global-set-key (kbd "C-c r e") 'org-hugo-export-to-md)
-
-;; org-hugo-get-idを使うように設定.
-(setq org-hugo-anchor-functions '(org-hugo-get-page-or-bundle-name
-                                  org-hugo-get-custom-id
-                                  org-hugo-get-id
-                                  org-hugo-get-md5
-                                  ;; 日本語に不向きな気がする
-                                  org-hugo-get-heading-slug
-                                  ))
+  (setq org-hugo-auto-set-lastmod t)
+  ;; なんか.dir-locals.elに書いても反映してくれないな.
+  (setq org-export-with-author nil)
+  ;; org-hugo-get-idを使うように設定.
+  (setq org-hugo-anchor-functions
+        '(org-hugo-get-page-or-bundle-name
+          org-hugo-get-custom-id
+          org-hugo-get-id
+          org-hugo-get-md5
+          ;; 日本語に不向きな気がする
+          ;; org-hugo-get-heading-slug
+          )))
 ```
 
 このox-hugoで出力されるMarkdownはどうもリスト表示でスペースが4つ入ってしまう. GitHub Favorite Markdownのようにリストでのスペース２であって欲しいものの解決方法が見つからない.
@@ -1266,7 +1268,7 @@ Org-modeで書いたWiki用のページをSphinxで公開するためにreST形�
 
 ```emacs-lisp
 (use-package! ox-rst
-  :after 'ox)
+  :after ox)
 
 (after! ox
   (defun my/rst-to-sphinx-link-format (text backend info)
@@ -1449,7 +1451,7 @@ Zettelkasten MethodのOrg-roam実装.
                "zk/%<%Y%m%d%H%M%S>.org"
                "#+title:👨${title}\n#+filetags: :PERSON:\n")
       :unnarrowed t)
-     ("i" "📂 TOC" plain "%?"
+     ("f" "📂 TOC" plain "%?"
       :target (file+head "zk/%<%Y%m%d%H%M%S>.org"
                          "#+title:📂${title}\n#+filetags: :TOC:\n")
       :unnarrowed t)
@@ -1470,7 +1472,7 @@ Zettelkasten MethodのOrg-roam実装.
       :target (file+head "zk/%<%Y%m%d%H%M%S>.org"
                          "#+title:🗒${title}\n#+filetags: :DOC:\n")
       :unnarrowrd t)
-     ("f" "🦊 Darkfox" plain "%?"
+     ("k" "🦊 Darkfox" plain "%?"
       :target (file+head
                "zk/%<%Y%m%d%H%M%S>.org"
                "#+title:🦊${title}\n#+filetags: :DARKFOX:\n")
@@ -1491,8 +1493,6 @@ Zettelkasten MethodのOrg-roam実装.
       "%?
 
 - title: %^{title}
-- editor: %^{editor}
-- date: %^{date}
 - url: %^{url}
 "
       :target (file+head "zk/%<%Y%m%d%H%M%S>.org"
@@ -1804,7 +1804,8 @@ org-modeをTogglと連携させる.
 
 ### org-anki {#29076d}
 
-Org-modeとAnkiをつなぐ．
+Org-modeとAnkiをつなぐ.
+
 <https://github.com/eyeinsky/org-anki>
 
 今までanki-editorを利用していたものの，その記法とwikiの相性が悪かった（冗長）. これならorg-modeのheadlineがそのままつかえるのでよさそう.
@@ -1914,15 +1915,14 @@ org-sidebar-treeでサイドバーにアウトラインを表示.
 org-mode で timestamp のみを挿入するカスタム関数. Doom EmacsのせいでC-u C-c .が動作しないので.
 
 ```emacs-lisp
-;;
-;; (after! org
-;;   (defun my/insert-timestamp ()
-;;     "Insert time stamp."
-;;     (interactive)
-;;     (org-insert-time-stamp (current-time) t)
-;;     ;; (insert (format-time-string "%H:%M"))
-;;     )
-;;   (map! :map org-mode-map "C-c C-." #'my/insert-timestamp))
+(after! org
+  (defun my/insert-timestamp ()
+    "Insert time stamp."
+    (interactive)
+    (org-insert-time-stamp (current-time) t)
+    ;; (insert (format-time-string "%H:%M"))
+    )
+  (map! :map org-mode-map "C-c C-." #'my/insert-timestamp))
 ```
 
 ---
