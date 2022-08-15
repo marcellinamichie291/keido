@@ -1,6 +1,6 @@
 +++
 title = "⚡My Emacs Config - Nothung"
-lastmod = 2022-08-06T09:14:38+09:00
+lastmod = 2022-08-15T11:28:48+09:00
 tags = ["Emacs"]
 draft = false
 +++
@@ -160,11 +160,24 @@ ewwとorgを便利にするツール群(<https://github.com/alphapapa/org-web-to
 ```emacs-lisp
 ;; Completion
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; org-roam の completion-at-point が動作しないのはこいつかな...
+;; (add-hook! 'org-mode-hook (company-mode -1))
+;; company はなにげに使いそうだからな，TAB でのみ補完発動させるか.
+(setq company-idle-delay nil)
+(global-set-key (kbd "TAB") #'company-indent-or-complete-common)
+```
+
+
+### avy/swiper {#b352fb}
+
+検索強化.
+
+```emacs-lisp
 (use-package! avy
   :bind
-  ("M-g c" . avy-goto-char) ;; doom の keybind 上書き.
-  ("M-g l" . avy-goto-line) ;; doom の keybind 上書き.
-  ("M-g g". avy-goto-word-1))
+  ("C-c g c" . avy-goto-char) ;; doom の keybind 上書き.
+  ("C-c g l" . avy-goto-line) ;; doom の keybind 上書き.
+  ("C-c g g". avy-goto-word-1))
 
 ;; うまく動かないので封印 doom との相性が悪いのかも.
 ;; ひとまず migemo したいときは isearch で対応.
@@ -187,12 +200,6 @@ ewwとorgを便利にするツール群(<https://github.com/alphapapa/org-web-to
 ;; https://github.com/abo-abo/swiper/issues/2249
 ;;(after! avy-migemo
 ;;  (require 'avy-migemo-e.g.swiper))
-
-;; org-roam の completion-at-point が動作しないのはこいつかな...
-;; (add-hook! 'org-mode-hook (company-mode -1))
-;; company はなにげに使いそうだからな，TAB でのみ補完発動させるか.
-(setq company-idle-delay nil)
-(global-set-key (kbd "TAB") #'company-indent-or-complete-common)
 ```
 
 
@@ -1272,8 +1279,12 @@ Org-modeで書いたWiki用のページをSphinxで公開するためにreST形�
 
 (after! ox
   (defun my/rst-to-sphinx-link-format (text backend info)
-    (when (and (org-export-derived-backend-p backend 'rst) (not (search "<http" text)))
-      (replace-regexp-in-string "\\(\\.org>`_\\)" ">`" (concat ":doc:" text) nil nil 1)))
+    (when (and (org-export-derived-backend-p backend 'rst)
+               (not (search "<http" text)))
+      (replace-regexp-in-string
+       "\\(\\.org>`_\\)" ">`"
+       (concat ":doc:" text) nil nil 1)))
+
   (add-to-list 'org-export-filter-link-functions
                'my/rst-to-sphinx-link-format))
 ```
@@ -1978,7 +1989,8 @@ ref: [Forge User and Developer Manual](https://magit.vc/manual/forge/)
 [sshaw/git-link](https://github.com/sshaw/git-link)
 
 ```emacs-lisp
-(global-set-key (kbd "C-c g l") 'git-link)
+;; つかってないのでキーバインド外す.
+;; (global-set-key (kbd "C-c g u") 'git-link)
 (use-package! git-link
   :config
   ;; urlにbranchではなくcommit番号をつかう.
