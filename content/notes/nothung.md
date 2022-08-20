@@ -1,6 +1,6 @@
 +++
 title = "⚡My Emacs Config - Nothung"
-lastmod = 2022-08-15T11:28:48+09:00
+lastmod = 2022-08-20T17:18:35+09:00
 tags = ["Emacs"]
 draft = false
 +++
@@ -178,6 +178,7 @@ ewwとorgを便利にするツール群(<https://github.com/alphapapa/org-web-to
   ("C-c g c" . avy-goto-char) ;; doom の keybind 上書き.
   ("C-c g l" . avy-goto-line) ;; doom の keybind 上書き.
   ("C-c g g". avy-goto-word-1))
+(global-set-key (kbd "C-c g L") 'consult-goto-line)
 
 ;; うまく動かないので封印 doom との相性が悪いのかも.
 ;; ひとまず migemo したいときは isearch で対応.
@@ -1369,6 +1370,8 @@ refs:
 
 org-superstar-mode(+pretty option)関連.
 
+bulletをおしゃれにかえる. ただそれと引き換えにパフォーマンスはちょっと落ちるかも.
+
 ```emacs-lisp
 (after! org
 ;;; Titles and Sections
@@ -1989,8 +1992,7 @@ ref: [Forge User and Developer Manual](https://magit.vc/manual/forge/)
 [sshaw/git-link](https://github.com/sshaw/git-link)
 
 ```emacs-lisp
-;; つかってないのでキーバインド外す.
-;; (global-set-key (kbd "C-c g u") 'git-link)
+(global-set-key (kbd "C-c s g") 'git-link)
 (use-package! git-link
   :config
   ;; urlにbranchではなくcommit番号をつかう.
@@ -2089,7 +2091,8 @@ TODOほかラベルを美しく.
 ### Others {#52ef96}
 
 ```emacs-lisp
-(setq display-line-numbers-type t) ; 行番号表示
+;; これがスクロールを遅くする可能性があるので実験的に抑止.
+(setq display-line-numbers-type nil) ; 行番号表示
 
 ;; less でのファイル閲覧に操作性を似せる mode.
 ;; view-mode は emacs 内蔵. C-x C-r で read-only-mode でファイルオープン
