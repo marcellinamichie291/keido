@@ -1,6 +1,6 @@
 +++
 title = "⚡My Emacs Config - Nothung"
-lastmod = 2022-08-20T17:18:35+09:00
+lastmod = 2022-09-05T14:44:41+09:00
 tags = ["Emacs"]
 draft = false
 +++
@@ -421,7 +421,7 @@ Emacsの画面に1行80文字のところに線を薄く引く.
 今つかっているモニタで縦に３分割すると74がちょうどいいことがわかった. (先頭に行番号表示4char+1charのmarginあり).
 
 ```emacs-lisp
-(setq-default display-fill-column-indicator-column 74)
+(setq-default display-fill-column-indicator-column 78)
 (global-display-fill-column-indicator-mode)
 ```
 
@@ -1017,8 +1017,8 @@ ref. [TODO Extensions (The Org Manual)](https://orgmode.org/manual/TODO-Extensio
 ```emacs-lisp
 (setq org-todo-keywords
       '((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(d)")
-        (sequence "✅(c)" "💡(b)" "📍(r)" "🔍(s)" "📊(a)" "🔬(e)" "🗣(h)" "|")
-        (sequence "🎓(z)" "📝(m)" "🔗(l)" "⚙(p)"  "|")))
+        (sequence "✅(c)" "💡(b)" "📍(r)" "🔍(s)" "📊(a)" "🔬(e)" "🗣(h)" "⚖(k)" "|")
+        (sequence "🎓(z)" "📝(m)" "🔗(l)" "⚙(p)" "📜(q)" "|")))
 ```
 
 
