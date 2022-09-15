@@ -1,6 +1,6 @@
 +++
 title = "⚡My Emacs Config - Nothung"
-lastmod = 2022-09-05T14:44:41+09:00
+lastmod = 2022-09-15T11:59:24+09:00
 tags = ["Emacs"]
 draft = false
 +++
@@ -436,6 +436,26 @@ Emacsの画面に1行80文字のところに線を薄く引く.
 (use-package! iedit
   :bind
   ("C-;" . iedit-mode))
+```
+
+
+### bm {#084243}
+
+現在行のブックマークライブラリ.
+
+[GitHub - joodland/bm: bm.el -- Visual Bookmarks for GNU Emacs](https://github.com/joodland/bm)
+
+しかし別用途とした現在行をハイライトしてログ解析とかでつかう.
+
+```emacs-lisp
+(use-package! bm
+  :bind   (("<f5>" . bm-toggle))
+  :config
+  (setq temporary-bookmark-p t)
+  (setq bm-face '((t (:background "steel blue" :foreground "#272822")))))
+;;(setq bm-face '((t (:background "#525252" :foreground ""))))
+;;	   ("<C-f5>"  . bm-next)
+;;	   ("<S-f5>" . bm-previous))
 ```
 
 
