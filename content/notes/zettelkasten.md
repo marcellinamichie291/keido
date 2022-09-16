@@ -1,6 +1,6 @@
 +++
-title = "🏛知恵まとめ(Zettelkasten)"
-lastmod = 2022-09-11T21:13:48+09:00
+title = "🏛知恵まとめ"
+lastmod = 2022-09-16T11:05:01+09:00
 tags = ["MOC"]
 draft = false
 +++
