@@ -1,6 +1,6 @@
 +++
 title = "📓DeepWork日誌"
-lastmod = 2022-09-18T06:24:51+09:00
+lastmod = 2022-09-18T07:04:48+09:00
 tags = ["JOURNAL", "DeepWork"]
 draft = false
 +++
@@ -43,3 +43,23 @@ draft = false
     Captured On: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-07-25 Mon 04:55&gt;</span></span>
 
     逆にいえば日中は暑くて集中できない. 夏は早起きしてしまうのがいいかも.
+
+
+### 2022-W37 {#897c81}
+
+
+#### 2022-09-18 Sunday {#cf3479}
+
+<!--list-separator-->
+
+-  ぐっすり睡眠を取ると休憩取らなくても集中できる
+
+    Captured On: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-09-18 Sun 07:00&gt;</span></span>
+
+    なんか寝すぎたなくらいのとき, そのあと作業をするといつもならば休憩を取るような時間でもまったく休憩を取る必要を感じなくそのまま作業できる.
+
+    これは面白いインサイト.
+
+    夜とか疲れてくると, 30分に一回休んでもまた疲れる. 眠気と集中力には何らかの関係がある. さらにいえば, 寝ているか起きているかではなく, 起きている中でも覚醒度の度合いがある気がする.
+
+    １日の間に5回くらい仮眠を取りつつ作業をするとどうなる?
