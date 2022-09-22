@@ -1,6 +1,6 @@
 +++
 title = "⚡My Emacs Config - Nothung"
-lastmod = 2022-09-21T10:54:43+09:00
+lastmod = 2022-09-22T11:51:12+09:00
 tags = ["Emacs"]
 draft = false
 +++
@@ -464,8 +464,9 @@ Emacsの画面に1行80文字のところに線を薄く引く.
 ```emacs-lisp
 ;; Emacs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; Emacs29
-;; (pixel-scroll-precision-mode)
+(pixel-scroll-precision-mode)
 
 ;; doomだとhelpが割り当てられていたがdoomのhelpはF1をつかう.
 
@@ -1943,7 +1944,10 @@ Kanbanツール Trello連携.
 org-sidebar-treeでサイドバーにアウトラインを表示.
 
 ```emacs-lisp
-(use-package! org-sidebar)
+(use-package! org-sidebar
+  :config
+  ;; cider-modeに合わせて C-c C-zにbindしてみた.
+  (define-key org-mode-map (kbd "C-c C-z") #'org-sidebar-tree-toggle))
 ```
 
 
