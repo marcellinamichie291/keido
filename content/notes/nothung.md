@@ -1,6 +1,6 @@
 +++
 title = "⚡My Emacs Config - Nothung"
-lastmod = 2022-09-22T11:51:12+09:00
+lastmod = 2022-09-25T18:46:05+09:00
 tags = ["Emacs"]
 draft = false
 +++
@@ -1569,6 +1569,8 @@ Zettelkasten MethodのOrg-roam実装.
 
 
 #### consult-org-roam(Org-roam検索強化) {#b09eea}
+
+ref. <https://github.com/jgru/consult-org-roam>
 
 以下の機能を提供.ファイル名は今は日付にしているからいらないかな.全文検索は動かない.バックリンク検索だけ使えそう.
 
