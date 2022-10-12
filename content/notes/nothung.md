@@ -1,6 +1,6 @@
 +++
 title = "⚡My Emacs Config - Nothung"
-lastmod = 2022-09-25T18:46:05+09:00
+lastmod = 2022-10-12T08:28:15+09:00
 tags = ["Emacs"]
 draft = false
 +++
@@ -820,6 +820,8 @@ EmacsのWindow Manager.
 
 もはやこれをつかうと世界がEmacsになりEmacs 引きこもり生活が完成する.
 
+counsel-linux-appだと起動時にハングしてPC再起動になることが多い. Shift+Alt+&によるアプリケーション起動がいいかも.
+
 ```emacs-lisp
 (use-package! exwm
   :after counsel
@@ -1040,7 +1042,7 @@ ref. [TODO Extensions (The Org Manual)](https://orgmode.org/manual/TODO-Extensio
 (setq org-todo-keywords
       '((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(d)")
         (sequence "✅(c)" "💡(b)" "📍(r)" "🔍(s)" "📊(a)" "🔬(e)" "🗣(h)" "⚖(k)" "|")
-        (sequence "🎓(z)" "📝(m)" "🔗(l)" "⚙(p)" "📜(q)" "|")))
+        (sequence "🎓(z)" "📝(m)" "🔗(l)" "⚙(p)" "📜(q)" "⛓(i)" "|")))
 ```
 
 
@@ -1582,7 +1584,6 @@ ref. <https://github.com/jgru/consult-org-roam>
 
 ```emacs-lisp
 (use-package! consult-org-roam
-   :ensure t
    :init
    (require 'consult-org-roam)
    ;; Activate the minor-mode
