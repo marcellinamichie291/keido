@@ -1,11 +1,11 @@
 +++
 title = "🏠Keido HOME"
-lastmod = 2022-10-25T15:32:47+09:00
+lastmod = 2022-11-03T07:02:16+09:00
 tags = ["HOME"]
 draft = false
 +++
 
-tsu-neraの知的生産基盤.
+Wiki and Zettelkastenによる実験的な知的生産基盤.
 
 
 ## Inputs {#ee611c}
